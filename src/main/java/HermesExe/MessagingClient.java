@@ -167,4 +167,21 @@ public class MessagingClient {
 
         return encryptedMessage.toString();
     }
+    public static String encrypt2(String message, int timeIndicator, int dayOfWeek) {
+        int messageLength = message.length();
+        int coefficient = (messageLength + timeIndicator + dayOfWeek) % 26;
+        StringBuilder encryptedMessage = new StringBuilder();
+
+        for (char c : message.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char lowerCaseChar = Character.toLowerCase(c);
+                char encryptedChar = (char) ((lowerCaseChar - 'a' + coefficient) % 26 + 'a');
+                encryptedMessage.append(encryptedChar);
+            } else {
+                encryptedMessage.append(c); // Preserve non-letter characters
+            }
+        }
+
+        return encryptedMessage.toString();
+    }
 }
